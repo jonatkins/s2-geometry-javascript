@@ -314,8 +314,8 @@ S2.S2Cell.prototype.getNeighbors = function() {
   var L = {};
 
   L.LatLng = function (/*Number*/ rawLat, /*Number*/ rawLng, /*Boolean*/ noWrap) {
-    var lat = parseFloat(rawLat);
-    var lng = parseFloat(rawLng);
+    var lat = parseFloat(rawLat, 10);
+    var lng = parseFloat(rawLng, 10);
 
     if (isNaN(lat) || isNaN(lng)) {
       throw new Error('Invalid LatLng object: (' + rawLat + ', ' + rawLng + ')');
