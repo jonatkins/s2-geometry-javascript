@@ -312,7 +312,7 @@ S2.S2Cell.prototype.getNeighbors = function() {
   // Adapted from Leafletjs https://searchcode.com/codesearch/view/42525008/
 
   var L = { LatLng: {} };
-  windows.L = L;
+  window.L = L;
 
   L.LatLng.DEG_TO_RAD = Math.PI / 180;
   L.LatLng.RAD_TO_DEG = 180 / Math.PI;
