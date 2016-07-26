@@ -92,7 +92,7 @@ var XYZToFaceUV = function(xyz) {
     face += 3;
   }
 
-  uv = faceXYZToUV (face,xyz);
+  var uv = faceXYZToUV (face,xyz);
 
   return [face, uv];
 };
