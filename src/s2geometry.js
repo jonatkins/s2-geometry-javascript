@@ -23,9 +23,9 @@
 //        (so GetSizeIJ for a cell is always 1)
 
 (function() {
+'use strict';
 
 window.S2 = {};
-
 
 var LatLngToXYZ = function(latLng) {
   var d2r = L.LatLng.DEG_TO_RAD;
@@ -44,7 +44,7 @@ var XYZToLatLng = function(xyz) {
   var lat = Math.atan2(xyz[2], Math.sqrt(xyz[0]*xyz[0]+xyz[1]*xyz[1]));
   var lng = Math.atan2(xyz[1], xyz[0]);
 
-  return L.latLng(lat*r2d, lng*r2d);
+  return L.LatLng(lat*r2d, lng*r2d);
 };
 
 var largestAbsComponent = function(xyz) {
@@ -304,4 +304,32 @@ S2.S2Cell.prototype.getNeighbors = function() {
 };
 
 
+})();
+
+(function () {
+'use strict';
+
+  // Adapted from Leafletjs https://searchcode.com/codesearch/view/42525008/
+
+  var L = { LatLng: {} };
+  windows.L = L;
+
+  L.LatLng.DEG_TO_RAD = Math.PI / 180;
+  L.LatLng.RAD_TO_DEG = 180 / Math.PI;
+
+  L.LatLng = function (/*Number*/ rawLat, /*Number*/ rawLng, /*Boolean*/ noWrap) {
+    var lat = parseFloat(rawLat);
+    var lng = parseFloat(rawLng);
+
+    if (isNaN(lat) || isNaN(lng)) {
+      throw new Error('Invalid LatLng object: (' + rawLat + ', ' + rawLng + ')');
+    }
+
+    if (noWrap !== true) {
+      lat = Math.max(Math.min(lat, 90), -90);                 // clamp latitude into -90..90
+      lng = (lng + 180) % 360 + ((lng < -180 || lng === 180) ? 180 : -180);   // wrap longtitude into -180..180
+    }
+
+    return { lat: lat, lng: lng };
+  };
 })();
